@@ -812,7 +812,7 @@ const Dex = new class implements ModdedDex {
 
 			return `background:transparent url(${Config.hostURL}sprites/icons/${clean_id}.png) no-repeat scroll 0 0${fainted}; background-position: center;`;
 		}
-		return `background:transparent url(${Dex.resourcePrefix}sprites/pokemonicons-sheet.png?v16) no-repeat scroll -${left}px -${top}px${fainted}`;
+		return `background:transparent url(${Dex.resourcePrefix}sprites/pokemonicons-sheet.png?v21) no-repeat scroll -${left}px -${top}px${fainted}`;
 	}
 
 	getTeambuilderSpriteData(pokemon: any, gen: number = 0): TeambuilderSpriteData {
@@ -823,7 +823,7 @@ const Dex = new class implements ModdedDex {
 			spriteid = species.spriteid || toID(pokemon.species);
 		}
 		// if it doesn't exist then add it so you don't get a broken image lol it's a custom client you can easily add the image
-		if (species.num <= 0 || species.id.endsWith('megag')) {
+		if (species.num <= 0 || species.name.includes('-Sanctified') || species.id.endsWith('megag') || species.formeid == '-elastic' || species.formeid == '-clean') {
 			return {
 				spriteDir: 'sprites/custom', spriteid, x: 15, y: 15, isCustom: true,
 			};
@@ -935,7 +935,7 @@ class ModdedDex {
 	constructor(modid: ID) {
 		this.modid = modid;
 		const gen = parseInt(modid.substr(3, 1), 10);
-		if (modid === 'omnifield') {
+		if (modid === 'omnifield' || modid === '35_pokes') {
 			this.gen = 9;
 		} else {
 			if (!modid.startsWith('gen') || !gen) throw new Error("Unsupported modid");
